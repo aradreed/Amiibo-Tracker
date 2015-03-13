@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Amiibo Track v.3
+# Amiibo Track v.5
 # Arad Reed
 # Tracks in stock alerts from nowinstock.net
 # TODO: Allow audio to be played on both Windows and OSX

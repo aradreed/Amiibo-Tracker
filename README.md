@@ -1,4 +1,4 @@
-# Amiibo-Tracker v.3
+# Amiibo-Tracker v.5
 
 ## Description
 First, I believe this script only works on a Mac for the moment only due to the audio line. Without audio, it should work on either. 
@@ -13,6 +13,12 @@ Simply start the script with
 
 ````
 ./amiiboTrack.rb
+````
+
+If you would like to get alerts for only certain ones, put them in a txt file (one line per item) and pass that to the program. See the included items.txt for examples.
+
+````
+./amiiboTrack.rb ./items.txt
 ````
 
 ...and then wait for amiibo to come.
