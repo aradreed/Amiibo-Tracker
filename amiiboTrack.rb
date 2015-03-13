@@ -89,8 +89,8 @@ while true
     # Audio alert
     if (stock[0].include? "In Stock")
       
-      if items
-        if items.any? { |item| stock.include?(item) }
+      if tracked_items
+        if tracked_items.any? { |item| stock.include?(item) }
           pid = fork{ exec 'afplay', alert }
         end
       else
