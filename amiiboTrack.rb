@@ -8,6 +8,24 @@
 require 'mechanize'
 require 'curses'
 
+def read_item_file(filename) 
+  # Reads a given file to see what to limit the alerts to
+  # Stores items in an array
+  items = []
+  
+  if File.exist? filename
+    File.open(filename, "r") do |f|
+      f.each_line do |item|
+        items.push(item.chomp)
+      end
+    end
+    
+    return items
+  else
+    puts "Given file does not exist, running on all items"
+  end
+end
+
 def get_stock(mech, link)
   # Grab the most recent stock data
   page = mech.get(link)
@@ -41,10 +59,13 @@ def output(stock_arr, times)
 end
 
 # Start Curses screen
-#Curses.init_screen
+Curses.init_screen
+
+# Given filename, track only items listed in file
+tracked_items = read_item_file(ARGV[0]) if ARGV[0]
 
 # Audio alert to play 
-file = './alert.wav'
+alert = './alert.wav'
 
 # Tracking link
 link = "http://www.nowinstock.net/modules/history/us/743.html"
@@ -67,7 +88,14 @@ while true
     
     # Audio alert
     if (stock[0].include? "In Stock")
-      pid = fork{ exec 'afplay', file }
+      
+      if items
+        if items.any? { |item| stock.include?(item) }
+          pid = fork{ exec 'afplay', alert }
+        end
+      else
+        pid = fork{ exec 'afplay', alert }
+      end
     end
   end
   
