@@ -66,7 +66,7 @@ while true
     output(stock, times)
     
     # Audio alert
-    if (stock[0].include "In Stock")
+    if (stock[0].include? "In Stock")
       pid = fork{ exec 'afplay', file }
     end
   end
