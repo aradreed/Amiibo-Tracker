@@ -3,6 +3,7 @@
 # Amiibo Track v.2
 # Arad Reed
 # Tracks in stock alerts from nowinstock.net
+# TODO: Allow audio to be played on both Windows and OSX
 
 require 'mechanize'
 require 'curses'
