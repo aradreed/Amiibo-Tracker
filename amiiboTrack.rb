@@ -1,12 +1,32 @@
 #!/usr/bin/env ruby
 
-# Amiibo Track v.5
+# Amiibo Track v.7
 # Arad Reed
 # Tracks in stock alerts from nowinstock.net
-# TODO: Allow audio to be played on both Windows and OSX
+
+begin
+  gem 'mechanize'
+rescue LoadError
+  puts "Installing mechanize gem..."
+  system('gem install mechanize')
+  Gem.clear_paths
+end 
+
+begin
+  gem 'curses'
+rescue LoadError
+  puts "Installing curses gem..."
+  system('gem install curses')
+  Gem.clear_paths
+end 
 
 require 'mechanize'
 require 'curses'
+
+def is_windows?
+  # Determine if this is running or Windows OS or not
+  RUBY_PLATFORM.downcase.include?("mswin")
+end
 
 def read_item_file(filename) 
   # Reads a given file to see what to limit the alerts to
@@ -88,13 +108,13 @@ while true
     
     # Audio alert
     if (stock[0].include? "In Stock")
-      
+      # Play alert
       if tracked_items
         if tracked_items.any? { |item| stock.include?(item) }
-          pid = fork{ exec 'afplay', alert }
+          if is_windows? then fork{ exec 'mpg123','-q', alert } else fork{ exec 'afplay', alert } end
         end
       else
-        pid = fork{ exec 'afplay', alert }
+        if is_windows? then fork{ exec 'mpg123','-q', alert } else fork{ exec 'afplay', alert } end
       end
     end
   end

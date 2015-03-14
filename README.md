@@ -1,12 +1,10 @@
-# Amiibo-Tracker v.5
+# Amiibo-Tracker v.7
 
 ## Description
-First, I believe this script only works on a Mac for the moment only due to the audio line. Without audio, it should work on either. 
-
 This script scrapes http://www.nowinstock.net/videogaming/games/amiibo/ for an amiibo alert. The site is scraped every 30 seconds by default and shows the current tracker history. It will play the alert sound when the newest thing added on the tracker history is in stock.
 
 ## Requirements
-This script requires the 'mechanize' and 'curses' gems
+This script needs Ruby installed to run. It also uses the mechanize and curses gems, but those will be installed if not already. 
 
 ## Usage
 Simply start the script with 
